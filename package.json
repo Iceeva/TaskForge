@@ -1,0 +1,17 @@
+{
+  "name": "taskforge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SaaS Task Management Platform — Kanban, Lists, Calendar, Timeline, Real-time",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build": "cd frontend && npm run build && cd ../backend && npm run build",
+    "start": "cd backend && npm run start",
+    "db:push": "cd backend && npx prisma db push",
+    "db:seed": "cd backend && npx ts-node prisma/seed.ts",
+    "db:studio": "cd backend && npx prisma studio"
+  },
+  "workspaces": ["frontend", "backend"]
+}
