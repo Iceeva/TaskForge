@@ -33,7 +33,7 @@ export default function TimelineView() {
   return (
     <div className="overflow-x-auto">
       <div className="min-w-[900px]">
-        {/* Header — day labels */}
+        {/* Header -day labels */}
         <div className="flex border-b border-zinc-800 mb-2">
           <div className="w-48 flex-shrink-0" />
           <div className="flex-1 flex">

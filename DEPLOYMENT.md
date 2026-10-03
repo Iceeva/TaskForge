@@ -1,4 +1,4 @@
-# 🚀 Déploiement sur Vercel — 2 domaines séparés
+# 🚀 Déploiement sur Vercel -2 domaines séparés
 
 TaskForge est structuré comme **deux projets Vercel indépendants** :
 
@@ -15,8 +15,8 @@ Les deux se déploient séparément depuis le même repo Git (Vercel permet de d
 
 Vercel n'héberge pas de Postgres persistant adapté aux fonctions serverless sans pooling. Utilise un provider avec **connection pooling** :
 
-- [Neon](https://neon.tech) (recommandé, gratuit pour démarrer) — fournit une URL "pooled" (`?pgbouncer=true`) et une URL "direct"
-- [Supabase](https://supabase.com) — idem (port 6543 pooled / 5432 direct)
+- [Neon](https://neon.tech) (recommandé, gratuit pour démarrer) -fournit une URL "pooled" (`?pgbouncer=true`) et une URL "direct"
+- [Supabase](https://supabase.com) -idem (port 6543 pooled / 5432 direct)
 - Vercel Postgres (Neon en marque blanche)
 
 Récupère deux chaînes de connexion :
@@ -46,7 +46,7 @@ FRONTEND_URL=https://app.tondomaine.com
 ```bash
 cd backend
 npx prisma db push
-npx prisma db seed   # optionnel — données de démo
+npx prisma db seed   # optionnel -données de démo
 ```
 
 6. Une fois déployé, note l'URL générée (ou configure ton domaine personnalisé dans Project Settings → Domains). Le préfixe global de l'API est `/api`, donc toutes les routes sont sous `https://api-taskforge.tondomaine.com/api/...` (ex: `/api/auth/login`, `/api/tasks`).
@@ -94,7 +94,7 @@ CORS_ORIGIN=https://app.tondomaine.com,https://taskforge-frontend.vercel.app
 - [ ] `https://api-taskforge.tondomaine.com/api/docs` répond (Swagger)
 - [ ] `https://app.tondomaine.com` charge et permet de se connecter
 - [ ] Créer une tâche, un sprint, logguer du temps → tout persiste bien en base
-- [ ] Le stockage de fichiers (avatars, pièces jointes) est configuré via Cloudinary (ou S3) — les uploads ne persistent pas sur le filesystem d'une fonction serverless
+- [ ] Le stockage de fichiers (avatars, pièces jointes) est configuré via Cloudinary (ou S3) -les uploads ne persistent pas sur le filesystem d'une fonction serverless
 - [ ] Le webhook/planificateur d'emails (SMTP) est configuré si tu comptes utiliser les invitations par email
 
 ---

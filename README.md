@@ -1,4 +1,4 @@
-# ⚡ TaskForge — SaaS Collaborative Task Management
+# ⚡ TaskForge -SaaS Collaborative Task Management
 
 > A full-featured task management platform with Kanban boards, real-time collaboration, multiple views, and AI-powered features.
 
@@ -9,55 +9,55 @@
 ## ✨ Features
 
 ### 📋 Task Management
-- **Kanban Board** — Drag & drop tasks between columns (dnd-kit)
-- **List View** — Tabular task view with sorting and filtering
-- **Calendar View** — Monthly calendar with task placement
-- **Timeline View** — Horizontal timeline for date-based tasks
-- **Gantt Chart** — Project timeline with progress bars and dependencies
-- **Task Details** — Rich modal with description, checklist, comments, activity log
-- **Sub-tasks** — Nested task hierarchy
-- **Priority Levels** — Urgent, High, Medium, Low, None
-- **Labels** — Custom color-coded labels
-- **Checklist** — Within-task checklist items
-- **Attachments** — File upload support
+- **Kanban Board** -Drag & drop tasks between columns (dnd-kit)
+- **List View** -Tabular task view with sorting and filtering
+- **Calendar View** -Monthly calendar with task placement
+- **Timeline View** -Horizontal timeline for date-based tasks
+- **Gantt Chart** -Project timeline with progress bars and dependencies
+- **Task Details** -Rich modal with description, checklist, comments, activity log
+- **Sub-tasks** -Nested task hierarchy
+- **Priority Levels** -Urgent, High, Medium, Low, None
+- **Labels** -Custom color-coded labels
+- **Checklist** -Within-task checklist items
+- **Attachments** -File upload support
 
 ### 👥 Collaboration
-- **Real-time Sync** — Socket.io WebSocket for live updates
-- **Comments** — Threaded comments on tasks
-- **Live Cursors** — See where teammates are working
-- **Typing Indicators** — Know when someone is typing
-- **Activity Feed** — Full audit log of all changes
-- **@Mentions** — Tag team members in comments
+- **Real-time Sync** -Socket.io WebSocket for live updates
+- **Comments** -Threaded comments on tasks
+- **Live Cursors** -See where teammates are working
+- **Typing Indicators** -Know when someone is typing
+- **Activity Feed** -Full audit log of all changes
+- **@Mentions** -Tag team members in comments
 
 ### 🏢 Multi-Tenant
-- **Workspaces** — Isolated data per workspace
-- **Teams** — Organize members into teams
-- **Projects** — Multiple projects per workspace
-- **Invitations** — Email-based invite system
-- **RBAC** — Owner, Admin, Member, Viewer roles
+- **Workspaces** -Isolated data per workspace
+- **Teams** -Organize members into teams
+- **Projects** -Multiple projects per workspace
+- **Invitations** -Email-based invite system
+- **RBAC** -Owner, Admin, Member, Viewer roles
 
 ### 🔐 Security
-- **JWT Auth** — Access + Refresh token flow
-- **OAuth** — Google & GitHub social login
-- **Two-Factor Auth** — TOTP-based 2FA
-- **Password Hashing** — bcrypt with 12 rounds
-- **CORS** — Configurable origin policy
+- **JWT Auth** -Access + Refresh token flow
+- **OAuth** -Google & GitHub social login
+- **Two-Factor Auth** -TOTP-based 2FA
+- **Password Hashing** -bcrypt with 12 rounds
+- **CORS** -Configurable origin policy
 
 ### 🔔 Notifications
-- **In-App** — Real-time notification feed
-- **Configurable** — Per-notification-type settings
-- **Mark Read** — Individual or bulk mark-as-read
+- **In-App** -Real-time notification feed
+- **Configurable** -Per-notification-type settings
+- **Mark Read** -Individual or bulk mark-as-read
 
 ### 🏃 Agile & Suivi (nouveau)
-- **Sprints** — planification, activation, burndown chart
-- **Milestones** — jalons de projet avec date d'échéance
-- **Time Tracking** — logguer du temps par tâche, résumé par membre/projet
-- **Dépendances entre tâches** — "bloque" / "bloqué par"
-- **Analytics** — taux de complétion, retards, charge par membre, tendance 14 jours
-- **Recherche globale** — palette de commandes (Cmd+K)
-- **Filtres sauvegardés** — personnels ou partagés
-- **Clés API** — intégrations externes (clé hashée SHA-256)
-- **Export CSV** — export des tâches d'un projet
+- **Sprints** -planification, activation, burndown chart
+- **Milestones** -jalons de projet avec date d'échéance
+- **Time Tracking** -logguer du temps par tâche, résumé par membre/projet
+- **Dépendances entre tâches** -"bloque" / "bloqué par"
+- **Analytics** -taux de complétion, retards, charge par membre, tendance 14 jours
+- **Recherche globale** -palette de commandes (Cmd+K)
+- **Filtres sauvegardés** -personnels ou partagés
+- **Clés API** -intégrations externes (clé hashée SHA-256)
+- **Export CSV** -export des tâches d'un projet
 
 ## 🛠 Tech Stack
 
@@ -200,38 +200,38 @@ alex@taskforge.io / password123 (Member)
 ## 📡 API Endpoints
 
 ### Auth
-- `POST /api/auth/register` — Create account
-- `POST /api/auth/login` — Login (returns JWT)
-- `POST /api/auth/refresh` — Refresh token
-- `POST /api/auth/2fa/setup` — Setup TOTP
-- `POST /api/auth/2fa/verify` — Verify 2FA
+- `POST /api/auth/register` -Create account
+- `POST /api/auth/login` -Login (returns JWT)
+- `POST /api/auth/refresh` -Refresh token
+- `POST /api/auth/2fa/setup` -Setup TOTP
+- `POST /api/auth/2fa/verify` -Verify 2FA
 
 ### Workspaces
-- `GET /api/workspaces` — User's workspaces
-- `GET /api/workspaces/:id` — Workspace details
-- `POST /api/workspaces/:id/invite` — Invite member
+- `GET /api/workspaces` -User's workspaces
+- `GET /api/workspaces/:id` -Workspace details
+- `POST /api/workspaces/:id/invite` -Invite member
 
 ### Projects
-- `GET /api/projects?workspaceId=` — List projects
-- `GET /api/projects/:id` — Project with columns & tasks
-- `POST /api/projects` — Create project
-- `POST /api/projects/:id/columns` — Add column
+- `GET /api/projects?workspaceId=` -List projects
+- `GET /api/projects/:id` -Project with columns & tasks
+- `POST /api/projects` -Create project
+- `POST /api/projects/:id/columns` -Add column
 
 ### Tasks
-- `GET /api/tasks?projectId=` — List tasks (filterable)
-- `GET /api/tasks/:id` — Task detail
-- `POST /api/tasks` — Create task
-- `PATCH /api/tasks/:id` — Update task
-- `POST /api/tasks/:id/move` — Move task (Kanban)
-- `POST /api/tasks/:id/assign` — Assign user
+- `GET /api/tasks?projectId=` -List tasks (filterable)
+- `GET /api/tasks/:id` -Task detail
+- `POST /api/tasks` -Create task
+- `PATCH /api/tasks/:id` -Update task
+- `POST /api/tasks/:id/move` -Move task (Kanban)
+- `POST /api/tasks/:id/assign` -Assign user
 
 ### Comments
-- `GET /api/comments?taskId=` — Task comments
-- `POST /api/comments` — Add comment
+- `GET /api/comments?taskId=` -Task comments
+- `POST /api/comments` -Add comment
 
 ### Notifications
-- `GET /api/notifications` — Notification feed
-- `POST /api/notifications/read-all` — Mark all read
+- `GET /api/notifications` -Notification feed
+- `POST /api/notifications/read-all` -Mark all read
 
 ## 🔌 WebSocket Events
 
@@ -251,4 +251,4 @@ alex@taskforge.io / password123 (Member)
 
 ## 📜 License
 
-MIT — Built with ❤️ by TaskForge team.
+MIT -Built with ❤️ by TaskForge team.

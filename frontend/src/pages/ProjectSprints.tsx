@@ -116,7 +116,7 @@ export default function ProjectSprints() {
         {/* Burndown */}
         <div className="card p-4">
           <p className="text-sm font-semibold mb-3">
-            {selected ? `Burndown — ${selected.name}` : 'Sélectionnez un sprint pour voir son burndown'}
+            {selected ? `Burndown -${selected.name}` : 'Sélectionnez un sprint pour voir son burndown'}
           </p>
           {selected && burndown.length > 0 && (
             <ResponsiveContainer width="100%" height={240}>

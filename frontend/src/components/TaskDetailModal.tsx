@@ -253,7 +253,7 @@ export default function TaskDetailModal({ task, onClose }: Props) {
                       </div>
                       <span className="text-zinc-300">{entry.user.name}</span>
                       <span className="text-brand-400 font-medium">{(entry.minutes / 60).toFixed(1)}h</span>
-                      {entry.note && <span className="text-zinc-500 flex-1 truncate">— {entry.note}</span>}
+                      {entry.note && <span className="text-zinc-500 flex-1 truncate">-{entry.note}</span>}
                       <span className="text-zinc-600">{timeAgo(entry.date)}</span>
                     </div>
                   ))}

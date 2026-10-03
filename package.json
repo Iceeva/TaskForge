@@ -2,7 +2,7 @@
   "name": "taskforge",
   "version": "1.0.0",
   "private": true,
-  "description": "SaaS Task Management Platform — Kanban, Lists, Calendar, Timeline, Real-time",
+  "description": "SaaS Task Management Platform -Kanban, Lists, Calendar, Timeline, Real-time",
   "scripts": {
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "cd frontend && npm run dev",
