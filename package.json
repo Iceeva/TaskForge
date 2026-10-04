@@ -7,11 +7,21 @@
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "cd frontend && npm run dev",
     "dev:backend": "cd backend && npm run dev",
-    "build": "cd frontend && npm run build && cd ../backend && npm run build",
+    "build": "npm run build --workspace=frontend && npm run build --workspace=backend",
     "start": "cd backend && npm run start",
     "db:push": "cd backend && npx prisma db push",
     "db:seed": "cd backend && npx ts-node prisma/seed.ts",
-    "db:studio": "cd backend && npx prisma studio"
+    "db:studio": "cd backend && npx prisma studio",
+    "vercel-build": "npm run build --workspace=frontend && npm run vercel-build --workspace=backend"
   },
-  "workspaces": ["frontend", "backend"]
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
 }

@@ -14,6 +14,12 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { SearchModule } from './search/search.module';
 import { SavedFiltersModule } from './saved-filters/saved-filters.module';
 import { ApiKeysModule } from './api-keys/api-keys.module';
+import { HealthModule } from './health/health.module';
+
+// Socket.IO a besoin de connexions persistantes : impossible sur les fonctions
+// serverless Vercel. Le module n'est donc chargé que hors Vercel (dev, Docker,
+// Render/Railway/Fly).
+const realtime = process.env.VERCEL ? [] : [RealtimeModule];
 
 @Module({
   imports: [
@@ -24,7 +30,8 @@ import { ApiKeysModule } from './api-keys/api-keys.module';
     TasksModule,
     CommentsModule,
     NotificationsModule,
-    RealtimeModule,
+    ...realtime,
+    HealthModule,
     SprintsModule,
     MilestonesModule,
     TimeTrackingModule,

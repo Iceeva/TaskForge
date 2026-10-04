@@ -3,6 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcryptjs';
 import { authenticator } from 'otplib';
+import { jwtRefreshSecret } from '../config/env';
 
 @Injectable()
 export class AuthService {
@@ -76,7 +77,7 @@ export class AuthService {
   async refreshToken(refreshToken: string) {
     try {
       const payload = this.jwt.verify(refreshToken, {
-        secret: process.env.JWT_REFRESH_SECRET || 'refresh-secret',
+        secret: jwtRefreshSecret(),
       });
       return this.generateTokens(payload.sub, payload.email);
     } catch {
@@ -115,8 +116,8 @@ export class AuthService {
   private generateTokens(userId: string, email: string) {
     const accessToken = this.jwt.sign({ sub: userId, email });
     const refreshToken = this.jwt.sign({ sub: userId, email }, {
-      secret: process.env.JWT_REFRESH_SECRET || 'refresh-secret',
-      expiresIn: '7d',
+      secret: jwtRefreshSecret(),
+      expiresIn: process.env.JWT_REFRESH_EXPIRATION || '7d',
     });
     return { accessToken, refreshToken };
   }

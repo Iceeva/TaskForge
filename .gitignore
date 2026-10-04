@@ -7,3 +7,7 @@ build/
 .DS_Store
 coverage/
 .turbo/
+.vercel/
+*.tsbuildinfo
+.env.*
+!.env.example

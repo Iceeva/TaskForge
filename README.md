@@ -4,7 +4,7 @@
 
 ![NestJS](https://img.shields.io/badge/NestJS-10-red) ![React](https://img.shields.io/badge/React-18.3-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue) ![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-sky) ![Prisma](https://img.shields.io/badge/Prisma-6-teal) ![License](https://img.shields.io/badge/License-MIT-green)
 
-> 🚀 **Déploiement sur Vercel (2 domaines séparés)** : voir [`DEPLOYMENT.md`](./DEPLOYMENT.md) pour le guide complet (backend serverless + frontend, PostgreSQL/Prisma, CORS).
+> 🚀 **Déploiement sur Vercel** (1 projet recommandé, ou 2 projets) : voir [`DEPLOYMENT.md`](./DEPLOYMENT.md). Le temps réel (Socket.IO) est désactivé sur Vercel et reste disponible en Docker / Render / Railway / Fly.
 
 ## ✨ Features
 
@@ -249,6 +249,3 @@ alex@taskforge.io / password123 (Member)
 | `cursor:moved` | ← Client | Receive cursor position |
 | `users:online` | ← Client | Online users list |
 
-## 📜 License
-
-MIT -Built with ❤️ by TaskForge team.

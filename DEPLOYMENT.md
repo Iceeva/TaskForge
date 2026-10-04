@@ -1,104 +1,93 @@
-# 🚀 Déploiement sur Vercel -2 domaines séparés
+# 🚀 Déploiement sur Vercel
 
-TaskForge est structuré comme **deux projets Vercel indépendants** :
+TaskForge se déploie sur Vercel de deux façons. **L'option A (un seul projet) est recommandée** : une seule URL, pas de CORS, un seul déploiement.
 
-| Projet | Dossier | Domaine (exemple) | Contenu |
-|---|---|---|---|
-| **API** | `backend/` | `api-taskforge.tondomaine.com` | NestJS en fonction serverless |
-| **App** | `frontend/` | `app.tondomaine.com` | React (SPA statique) |
-
-Les deux se déploient séparément depuis le même repo Git (Vercel permet de définir un "Root Directory" différent par projet).
+| | Option A — 1 projet (recommandé) | Option B — 2 projets |
+|---|---|---|
+| Root Directory | `.` (racine du repo) | `backend` **et** `frontend` (2 projets) |
+| Front | `frontend/dist` (statique) | projet Vercel dédié |
+| API | `api/index.js` → NestJS (`/api/*`) | projet Vercel dédié |
+| `VITE_API_URL` | non défini (`/api` par défaut) | `https://api.tondomaine.com/api` |
+| CORS | inutile (même origine) | `CORS_ORIGIN` obligatoire |
 
 ---
 
 ## 0. Base de données PostgreSQL
 
-Vercel n'héberge pas de Postgres persistant adapté aux fonctions serverless sans pooling. Utilise un provider avec **connection pooling** :
+Utilise un provider avec **pooling** (Neon, Supabase, Vercel Postgres) :
 
-- [Neon](https://neon.tech) (recommandé, gratuit pour démarrer) -fournit une URL "pooled" (`?pgbouncer=true`) et une URL "direct"
-- [Supabase](https://supabase.com) -idem (port 6543 pooled / 5432 direct)
-- Vercel Postgres (Neon en marque blanche)
+- `DATABASE_URL` → URL **poolée** (ajoute `?pgbouncer=true&connection_limit=1`)
+- `DIRECT_URL` → URL **directe** (migrations / `db push`)
 
-Récupère deux chaînes de connexion :
-- `DATABASE_URL` → connexion **poolée** (utilisée par l'app à l'exécution)
-- `DIRECT_URL` → connexion **directe** (utilisée par Prisma Migrate)
+Applique le schéma **une fois, depuis ta machine** :
+
+```bash
+cd backend
+cp .env.example .env      # renseigne DATABASE_URL et DIRECT_URL
+npx prisma db push
+npx prisma db seed        # optionnel : données de démo
+```
 
 ---
 
-## 1. Déployer le backend (API)
+## Option A — Un seul projet Vercel
 
-1. Sur [vercel.com/new](https://vercel.com/new), importe le repo, puis en "Root Directory" choisis **`backend`**
-2. Framework Preset : **Other**
-3. Variables d'environnement à ajouter (Project Settings → Environment Variables) :
+1. [vercel.com/new](https://vercel.com/new) → importe le repo, **Root Directory = `.`**, Framework Preset = **Other**.
+   Le `vercel.json` racine fournit déjà : build (`npm run vercel-build`), dossier de sortie (`frontend/dist`), fonction API et rewrites.
+2. Variables d'environnement (Production **et** Preview) :
 
 ```
 DATABASE_URL=postgresql://...?pgbouncer=true&connection_limit=1
 DIRECT_URL=postgresql://...
-JWT_SECRET=<valeur longue et aléatoire>
-JWT_REFRESH_SECRET=<autre valeur longue et aléatoire>
+JWT_SECRET=<≥ 32 caractères aléatoires>
+JWT_REFRESH_SECRET=<≥ 32 caractères, différent du précédent>
+```
+
+   Génère les secrets avec : `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`
+   `CORS_ORIGIN` n'est pas nécessaire (même origine).
+3. Déploie, puis vérifie :
+   - `https://<ton-projet>.vercel.app/api/health` → `{"status":"ok","db":"up"}`
+   - `https://<ton-projet>.vercel.app/api/docs` → Swagger
+   - `https://<ton-projet>.vercel.app/` → l'application
+
+---
+
+## Option B — Deux projets Vercel
+
+**API** — Root Directory `backend`, Preset *Other*. Variables :
+
+```
+DATABASE_URL=...  DIRECT_URL=...
+JWT_SECRET=...    JWT_REFRESH_SECRET=...
 CORS_ORIGIN=https://app.tondomaine.com
 FRONTEND_URL=https://app.tondomaine.com
 ```
 
-4. Déploie. Vercel exécute automatiquement `npm install`, ce qui déclenche `postinstall` → `prisma generate`.
-5. Applique le schéma à la base (une seule fois, depuis ta machine, avec les mêmes `DATABASE_URL`/`DIRECT_URL` dans `backend/.env`) :
+**App** — Root Directory `frontend`, Preset *Vite*. Variable :
 
-```bash
-cd backend
-npx prisma db push
-npx prisma db seed   # optionnel -données de démo
+```
+VITE_API_URL=https://api.tondomaine.com/api
 ```
 
-6. Une fois déployé, note l'URL générée (ou configure ton domaine personnalisé dans Project Settings → Domains). Le préfixe global de l'API est `/api`, donc toutes les routes sont sous `https://api-taskforge.tondomaine.com/api/...` (ex: `/api/auth/login`, `/api/tasks`).
-7. Vérifie que ça répond : `https://api-taskforge.tondomaine.com/api/docs` doit afficher Swagger.
-
-### ⚠️ Limite importante : temps réel (WebSocket)
-
-Les fonctions serverless Vercel ne maintiennent pas de connexions persistantes : le module `RealtimeModule` (Socket.IO) ne fonctionnera **pas** correctement une fois déployé sur Vercel (les clients se reconnecteront en boucle, sans recevoir d'événements live). Le reste de l'application (API REST, auth, tâches, etc.) n'est pas affecté.
-
-Deux options si la collaboration en temps réel est importante pour toi :
-- **Recommandé** : héberge uniquement `backend/` sur une plateforme à connexions persistantes (Render, Railway, Fly.io) via le `Dockerfile` déjà présent, et garde le frontend sur Vercel.
-- Ou désactive `RealtimeModule` dans `app.module.ts` et ajoute un polling léger côté frontend (rafraîchir `GET /projects/:id` toutes les X secondes) en attendant une meilleure solution (ex: Pusher, Ably, ou Vercel + un service pub/sub externe).
+`CORS_ORIGIN` accepte plusieurs origines séparées par des virgules (sans slash final). Redéploie après toute modification de variable.
 
 ---
 
-## 2. Déployer le frontend (App)
+## ⚠️ Temps réel (WebSocket)
 
-1. Sur [vercel.com/new](https://vercel.com/new), importe le **même repo** une seconde fois (nouveau projet), Root Directory : **`frontend`**
-2. Framework Preset : **Vite** (auto-détecté)
-3. Variable d'environnement :
+Les fonctions serverless ne gardent pas de connexion ouverte : **Socket.IO est automatiquement désactivé sur Vercel** (`process.env.VERCEL`), l'application fonctionne en REST pur. Côté front, `lib/socket.ts` est inactif tant que `VITE_WS_URL` n'est pas défini.
 
-```
-VITE_API_URL=https://api-taskforge.tondomaine.com/api
-```
+Pour le temps réel, héberge le backend sur Render / Railway / Fly.io (via `backend/Dockerfile`), garde le front sur Vercel et définis `VITE_WS_URL=https://ton-backend` + `VITE_API_URL=https://ton-backend/api`.
 
-4. Déploie. `vercel.json` gère déjà le rewrite SPA (`/* → /index.html`).
-5. Configure ton domaine personnalisé (Project Settings → Domains), ex. `app.tondomaine.com`.
+## Fichiers / e-mails
 
----
+Le filesystem d'une fonction Vercel est éphémère : utilise Cloudinary ou S3 pour les uploads, et un SMTP externe pour les invitations.
 
-## 3. Relier les deux domaines (CORS)
+## Checklist
 
-Une fois le frontend déployé sur son domaine final, retourne dans le projet **backend** sur Vercel et vérifie que `CORS_ORIGIN` correspond exactement à l'URL du frontend (avec `https://`, sans slash final). Redéploie si tu modifies une variable d'environnement (Vercel ne les applique qu'au prochain build).
+- [ ] `/api/health` répond `db: up`
+- [ ] Inscription → connexion → création d'un projet et d'une tâche
+- [ ] Rotation des secrets si un `.env` a déjà été partagé (voir ci-dessous)
+- [ ] `JWT_SECRET` / `JWT_REFRESH_SECRET` ≥ 32 caractères
 
-Tu peux lister plusieurs origines séparées par des virgules, utile pour garder aussi l'URL `*.vercel.app` de preview :
-
-```
-CORS_ORIGIN=https://app.tondomaine.com,https://taskforge-frontend.vercel.app
-```
-
----
-
-## 4. Checklist finale
-
-- [ ] `https://api-taskforge.tondomaine.com/api/docs` répond (Swagger)
-- [ ] `https://app.tondomaine.com` charge et permet de se connecter
-- [ ] Créer une tâche, un sprint, logguer du temps → tout persiste bien en base
-- [ ] Le stockage de fichiers (avatars, pièces jointes) est configuré via Cloudinary (ou S3) -les uploads ne persistent pas sur le filesystem d'une fonction serverless
-- [ ] Le webhook/planificateur d'emails (SMTP) est configuré si tu comptes utiliser les invitations par email
-
----
-
-## Alternative : un seul domaine
-
-Si tu préfères un seul domaine (`tondomaine.com/*` pour le front, `tondomaine.com/api/*` pour l'API), utilise plutôt les **Vercel Rewrites** au niveau du projet frontend pour proxifier `/api/*` vers l'URL du projet backend, et retire alors le `VITE_API_URL` (garde `/api` par défaut). C'est un peu moins isolé que 2 domaines mais évite de gérer le CORS.
+> 🔐 Ne commite jamais `backend/.env` (déjà dans `.gitignore`). Si ce fichier a été envoyé/partagé (archive, chat, ticket…), **régénère le mot de passe de la base** (Neon → Roles → Reset password) et les secrets JWT.

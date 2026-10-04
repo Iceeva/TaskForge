@@ -3,29 +3,40 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
+import { assertEnv } from './config/env';
+
+export interface CreateAppOptions {
+  /** true quand l'app tourne dans une fonction serverless (Vercel). */
+  serverless?: boolean;
+}
 
 /**
- * Shared Nest application factory used both by the local dev server
- * (src/main.ts) and the Vercel serverless entrypoint (api/index.ts).
+ * Factory Nest partagée par le serveur local (src/main.ts) et par les
+ * entrypoints serverless Vercel (api/index.js).
  */
-export async function createApp(): Promise<NestExpressApplication> {
+export async function createApp(options: CreateAppOptions = {}): Promise<NestExpressApplication> {
+  assertEnv();
+
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: ['error', 'warn', 'log'],
   });
 
+  // Derrière le proxy Vercel : nécessaire pour avoir la vraie IP / le bon protocole.
+  app.set('trust proxy', 1);
+
   const allowedOrigins = (process.env.CORS_ORIGIN || process.env.FRONTEND_URL || 'http://localhost:3000')
     .split(',')
-    .map((o) => o.trim())
+    .map((o) => o.trim().replace(/\/$/, ''))
     .filter(Boolean);
 
   app.enableCors({
     origin: (origin, callback) => {
-      // Allow non-browser requests (curl, server-to-server, health checks)
+      // Requêtes non-navigateur (curl, health checks, server-to-server)
       if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
         return callback(null, true);
       }
-      return callback(new Error(`Origin ${origin} not allowed by CORS`), false);
+      return callback(null, false); // refus propre (pas de 500)
     },
     credentials: true,
   });
@@ -47,7 +58,18 @@ export async function createApp(): Promise<NestExpressApplication> {
     .addBearerAuth()
     .build();
   const doc = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, doc);
+
+  // En serverless, les assets de swagger-ui-dist ne sont pas embarqués dans la
+  // fonction : on les charge depuis un CDN, sinon /api/docs affiche une page blanche.
+  const cdn = 'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.14';
+  SwaggerModule.setup('api/docs', app, doc, {
+    ...(options.serverless
+      ? {
+          customCssUrl: `${cdn}/swagger-ui.css`,
+          customJs: [`${cdn}/swagger-ui-bundle.js`, `${cdn}/swagger-ui-standalone-preset.js`],
+        }
+      : {}),
+  });
 
   return app;
 }

@@ -25,7 +25,10 @@ services:
     environment:
       DATABASE_URL: postgresql://taskforge:taskforge_secret@postgres:5432/taskforge
       REDIS_URL: redis://redis:6379
-      JWT_SECRET: your-jwt-secret-change-in-prod
+      DIRECT_URL: postgresql://taskforge:taskforge_secret@postgres:5432/taskforge
+      JWT_SECRET: dev-only-jwt-secret-change-me-0123456789abcdef
+      JWT_REFRESH_SECRET: dev-only-refresh-secret-change-me-0123456789
+      CORS_ORIGIN: http://localhost:3000
       PORT: 4000
     ports:
       - '4000:4000'
@@ -38,8 +41,8 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     environment:
-      VITE_API_URL: http://localhost:4000
-      VITE_WS_URL: ws://localhost:4000
+      VITE_API_URL: /api
+      VITE_WS_URL: http://localhost:4000
     ports:
       - '3000:3000'
     depends_on:
