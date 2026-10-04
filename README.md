@@ -1,195 +1,196 @@
-# ⚡ TaskForge -SaaS Collaborative Task Management
-
-> A full-featured task management platform with Kanban boards, real-time collaboration, multiple views, and AI-powered features.
+# ⚡ TaskForge — Gestion de tâches collaborative en SaaS
 
 ![NestJS](https://img.shields.io/badge/NestJS-10-red) ![React](https://img.shields.io/badge/React-18.3-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue) ![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-sky) ![Prisma](https://img.shields.io/badge/Prisma-6-teal) ![License](https://img.shields.io/badge/License-MIT-green)
 
 > 🚀 **Déploiement sur Vercel** (1 projet recommandé, ou 2 projets) : voir [`DEPLOYMENT.md`](./DEPLOYMENT.md). Le temps réel (Socket.IO) est désactivé sur Vercel et reste disponible en Docker / Render / Railway / Fly.
 
-## ✨ Features
+## 📖 À propos
 
-### 📋 Task Management
-- **Kanban Board** -Drag & drop tasks between columns (dnd-kit)
-- **List View** -Tabular task view with sorting and filtering
-- **Calendar View** -Monthly calendar with task placement
-- **Timeline View** -Horizontal timeline for date-based tasks
-- **Gantt Chart** -Project timeline with progress bars and dependencies
-- **Task Details** -Rich modal with description, checklist, comments, activity log
-- **Sub-tasks** -Nested task hierarchy
-- **Priority Levels** -Urgent, High, Medium, Low, None
-- **Labels** -Custom color-coded labels
-- **Checklist** -Within-task checklist items
-- **Attachments** -File upload support
+TaskForge est une plateforme SaaS de gestion de tâches collaborative, dans l'esprit de Jira, Trello ou Linear.
+
+**Ce qu'elle permet :**
+- organiser le travail par workspaces (multi-tenant), équipes et projets ;
+- visualiser les tâches en Kanban (glisser-déposer), liste, calendrier, timeline et Gantt ;
+- planifier en mode agile : sprints, jalons, dépendances entre tâches, suivi du temps, analytics ;
+- collaborer avec des commentaires, des mentions, des notifications et un journal d'activité ;
+- sécuriser l'accès avec des rôles (Owner, Admin, Member, Viewer), une authentification JWT, le 2FA et des clés API.
+
+**Stack :** NestJS + Prisma + PostgreSQL côté backend, React + Vite + Tailwind côté frontend.
+
+## ✨ Fonctionnalités
+
+### 📋 Gestion des tâches
+- **Tableau Kanban** — glisser-déposer des tâches entre colonnes (dnd-kit)
+- **Vue liste** — tableau des tâches avec tri et filtres
+- **Vue calendrier** — calendrier mensuel avec placement des tâches
+- **Vue timeline** — frise horizontale pour les tâches datées
+- **Diagramme de Gantt** — planning du projet avec barres de progression et dépendances
+- **Détail d'une tâche** — modale riche : description, checklist, commentaires, journal d'activité
+- **Sous-tâches** — hiérarchie de tâches imbriquées
+- **Priorités** — Urgente, Haute, Moyenne, Basse, Aucune
+- **Labels** — étiquettes colorées personnalisables
+- **Checklist** — éléments de checklist au sein d'une tâche
+- **Pièces jointes** — envoi de fichiers
 
 ### 👥 Collaboration
-- **Real-time Sync** -Socket.io WebSocket for live updates
-- **Comments** -Threaded comments on tasks
-- **Live Cursors** -See where teammates are working
-- **Typing Indicators** -Know when someone is typing
-- **Activity Feed** -Full audit log of all changes
-- **@Mentions** -Tag team members in comments
+- **Synchronisation temps réel** — WebSocket Socket.io pour les mises à jour en direct *(hors Vercel)*
+- **Commentaires** — commentaires en fil sur les tâches
+- **Curseurs en direct** — voir où travaillent les coéquipiers
+- **Indicateurs de saisie** — savoir quand quelqu'un écrit
+- **Journal d'activité** — historique complet des modifications
+- **@Mentions** — identifier des membres dans les commentaires
 
-### 🏢 Multi-Tenant
-- **Workspaces** -Isolated data per workspace
-- **Teams** -Organize members into teams
-- **Projects** -Multiple projects per workspace
-- **Invitations** -Email-based invite system
-- **RBAC** -Owner, Admin, Member, Viewer roles
+### 🏢 Multi-tenant
+- **Workspaces** — données isolées par espace de travail
+- **Équipes** — organisation des membres en équipes
+- **Projets** — plusieurs projets par workspace
+- **Invitations** — invitations de membres par e-mail
+- **RBAC** — rôles Owner, Admin, Member, Viewer
 
-### 🔐 Security
-- **JWT Auth** -Access + Refresh token flow
-- **OAuth** -Google & GitHub social login
-- **Two-Factor Auth** -TOTP-based 2FA
-- **Password Hashing** -bcrypt with 12 rounds
-- **CORS** -Configurable origin policy
+### 🔐 Sécurité
+- **Authentification JWT** — jetons d'accès + de rafraîchissement
+- **OAuth** — connexion sociale Google & GitHub
+- **Double authentification** — 2FA par TOTP
+- **Hachage des mots de passe** — bcrypt, 12 tours
+- **CORS** — politique d'origines configurable
 
 ### 🔔 Notifications
-- **In-App** -Real-time notification feed
-- **Configurable** -Per-notification-type settings
-- **Mark Read** -Individual or bulk mark-as-read
+- **Dans l'application** — fil de notifications
+- **Configurables** — réglages par type de notification
+- **Marquer comme lu** — individuellement ou en masse
 
-### 🏃 Agile & Suivi (nouveau)
-- **Sprints** -planification, activation, burndown chart
-- **Milestones** -jalons de projet avec date d'échéance
-- **Time Tracking** -logguer du temps par tâche, résumé par membre/projet
-- **Dépendances entre tâches** -"bloque" / "bloqué par"
-- **Analytics** -taux de complétion, retards, charge par membre, tendance 14 jours
-- **Recherche globale** -palette de commandes (Cmd+K)
-- **Filtres sauvegardés** -personnels ou partagés
-- **Clés API** -intégrations externes (clé hashée SHA-256)
-- **Export CSV** -export des tâches d'un projet
+### 🏃 Agile & suivi
+- **Sprints** — planification, activation, burndown chart
+- **Jalons** — jalons de projet avec date d'échéance
+- **Suivi du temps** — temps logué par tâche, résumé par membre/projet
+- **Dépendances entre tâches** — « bloque » / « bloqué par »
+- **Analytics** — taux de complétion, retards, charge par membre, tendance sur 14 jours
+- **Recherche globale** — palette de commandes (Cmd+K)
+- **Filtres sauvegardés** — personnels ou partagés
+- **Clés API** — intégrations externes (clé hachée en SHA-256)
+- **Export CSV** — export des tâches d'un projet
 
-## 🛠 Tech Stack
+## 🛠 Stack technique
 
 ### Backend
-| Layer | Technology |
-|-------|-----------|
+| Couche | Technologie |
+|--------|-------------|
 | **Framework** | NestJS 10 |
-| **Language** | TypeScript 5.6 |
-| **ORM** | Prisma 6 (16 models) |
-| **Database** | PostgreSQL 16 |
+| **Langage** | TypeScript 5.6 |
+| **ORM** | Prisma 6 (16 modèles) |
+| **Base de données** | PostgreSQL 16 |
 | **Cache** | Redis 7 |
-| **Real-time** | Socket.io 4 |
+| **Temps réel** | Socket.io 4 |
 | **Auth** | Passport JWT + bcryptjs + otplib |
-| **API Docs** | Swagger (OpenAPI) |
-| **Deploy** | Docker |
+| **Documentation API** | Swagger (OpenAPI) |
+| **Déploiement** | Vercel (serverless) ou Docker |
 
 ### Frontend
-| Layer | Technology |
-|-------|-----------|
+| Couche | Technologie |
+|--------|-------------|
 | **Framework** | React 18.3 + Vite 5 |
-| **Language** | TypeScript 5.6 |
-| **Styling** | TailwindCSS 3.4 |
-| **Drag & Drop** | @dnd-kit/core + sortable |
+| **Langage** | TypeScript 5.6 |
+| **Styles** | TailwindCSS 3.4 |
+| **Glisser-déposer** | @dnd-kit/core + sortable |
 | **Animations** | Framer Motion 11 |
-| **State** | Zustand 5 |
+| **État** | Zustand 5 |
 | **HTTP** | Axios |
-| **Routing** | React Router 6 |
-| **Real-time** | socket.io-client |
+| **Routage** | React Router 6 |
+| **Temps réel** | socket.io-client |
 | **Dates** | date-fns 4 |
 | **Toasts** | react-hot-toast |
-| **Deploy** | Nginx + Docker |
+| **Déploiement** | Vercel (statique) ou Nginx + Docker |
 
-## 📁 Project Structure
+## 📁 Structure du projet
 
 ```
 taskforge/
+├── api/
+│   └── index.js            # Point d'entrée serverless Vercel (mode 1 projet)
 ├── backend/
+│   ├── api/index.js        # Point d'entrée serverless Vercel (mode 2 projets)
 │   ├── prisma/
-│   │   ├── schema.prisma       # 16 models
-│   │   └── seed.ts             # Demo data seeder
+│   │   ├── schema.prisma   # 16 modèles
+│   │   └── seed.ts         # Données de démo
 │   ├── src/
-│   │   ├── main.ts             # NestJS bootstrap + Swagger
-│   │   ├── app.module.ts       # Root module
-│   │   ├── prisma/             # Prisma module + service
-│   │   ├── auth/               # Auth (JWT, 2FA, OAuth)
-│   │   ├── workspaces/         # Workspace CRUD + members
-│   │   ├── projects/           # Projects + columns
-│   │   ├── tasks/              # Tasks CRUD + move + assign
-│   │   ├── comments/           # Threaded comments
-│   │   ├── notifications/      # Notification feed
-│   │   └── realtime/           # WebSocket gateway
+│   │   ├── main.ts         # Démarrage NestJS local
+│   │   ├── create-app.ts   # Fabrique de l'app (local + serverless) + Swagger
+│   │   ├── app.module.ts   # Module racine
+│   │   ├── config/         # Vérification des variables d'environnement
+│   │   ├── common/         # AccessService (contrôle d'accès workspace/projet)
+│   │   ├── health/         # GET /api/health
+│   │   ├── prisma/         # Module + service Prisma
+│   │   ├── auth/           # Auth (JWT, 2FA, OAuth)
+│   │   ├── workspaces/     # CRUD workspaces + membres
+│   │   ├── projects/       # Projets + colonnes
+│   │   ├── tasks/          # CRUD tâches + déplacement + assignation
+│   │   ├── comments/       # Commentaires
+│   │   ├── notifications/  # Fil de notifications
+│   │   ├── sprints/ milestones/ timetracking/ analytics/
+│   │   ├── search/ saved-filters/ api-keys/
+│   │   └── realtime/       # Passerelle WebSocket (désactivée sur Vercel)
 │   ├── Dockerfile
 │   └── package.json
 ├── frontend/
 │   ├── src/
-│   │   ├── main.tsx            # React entry
-│   │   ├── App.tsx             # Router + auth guard
-│   │   ├── index.css           # Tailwind + globals
-│   │   ├── lib/
-│   │   │   ├── api.ts          # Axios + auth interceptors
-│   │   │   ├── socket.ts       # Socket.io client
-│   │   │   └── utils.ts        # Utilities + priority colors
-│   │   ├── types/
-│   │   │   └── index.ts        # TypeScript interfaces
-│   │   ├── stores/
-│   │   │   ├── auth.ts         # Auth state (Zustand)
-│   │   │   └── project.ts      # Project/board state
-│   │   ├── layouts/
-│   │   │   └── DashboardLayout.tsx
-│   │   ├── components/
-│   │   │   ├── layout/         # Sidebar, Header
-│   │   │   ├── views/          # KanbanBoard, ListView,
-│   │   │   │                   # CalendarView, TimelineView,
-│   │   │   │                   # GanttView
-│   │   │   ├── TaskCard.tsx    # Kanban task card
-│   │   │   └── TaskDetailModal.tsx # Task detail modal
-│   │   └── pages/
-│   │       ├── Login.tsx       # Login + OAuth
-│   │       ├── Register.tsx    # Registration
-│   │       ├── Dashboard.tsx   # Overview + stats
-│   │       ├── Project.tsx     # Project view (5 views)
-│   │       ├── Settings.tsx    # All settings tabs
-│   │       └── Team.tsx        # Team management
+│   │   ├── main.tsx        # Point d'entrée React
+│   │   ├── App.tsx         # Routeur + garde d'authentification
+│   │   ├── lib/            # api.ts (Axios), socket.ts (Socket.io), utils.ts
+│   │   ├── types/          # Interfaces TypeScript
+│   │   ├── stores/         # auth.ts, project.ts (Zustand)
+│   │   ├── layouts/        # DashboardLayout
+│   │   ├── components/     # layout/, views/ (Kanban, Liste, Calendrier, Timeline, Gantt), TaskCard, TaskDetailModal
+│   │   └── pages/          # Login, Register, Dashboard, Project, ProjectSprints, ProjectAnalytics, Settings, Team
 │   ├── Dockerfile
 │   ├── nginx.conf
 │   └── package.json
 ├── docker-compose.yml
+├── vercel.json             # Config Vercel (mode 1 projet)
+├── DEPLOYMENT.md
 └── package.json
 ```
 
-## 🚀 Getting Started
+## 🚀 Démarrage
 
-### Prerequisites
-- Node.js 18+
+### Prérequis
+- Node.js 20+
 - PostgreSQL 15+
-- Redis 7+
+- Redis 7+ *(optionnel, temps réel)*
 
-### Quick Start
+### Démarrage rapide
 
 ```bash
-# Clone
-git clone <repo-url>
+# Cloner
+git clone <url-du-repo>
 cd taskforge
 
-# Backend setup
-cd backend
+# Installer les dépendances (workspaces)
 npm install
+
+# Configurer le backend
+cd backend
 cp .env.example .env
-# Edit .env with your database URL
+# Renseigne DATABASE_URL, DIRECT_URL, JWT_SECRET et JWT_REFRESH_SECRET dans .env
 npx prisma generate
 npx prisma db push
 npx prisma db seed
+cd ..
 
-# Start backend
+# Lancer frontend + backend ensemble
 npm run dev
-
-# Frontend setup (new terminal)
-cd ../frontend
-npm install
-npm run dev
+# App : http://localhost:3000   API : http://localhost:4000/api
 ```
 
-### With Docker
+### Avec Docker
 
 ```bash
 docker-compose up -d
-# App: http://localhost:3000
-# API: http://localhost:4000
-# Swagger: http://localhost:4000/api/docs
+# App :     http://localhost:3000
+# API :     http://localhost:4000/api
+# Swagger : http://localhost:4000/api/docs
 ```
 
-### Demo Credentials
+### Identifiants de démo
 
 ```
 john@taskforge.io / password123 (Owner)
@@ -197,55 +198,62 @@ sarah@taskforge.io / password123 (Admin)
 alex@taskforge.io / password123 (Member)
 ```
 
-## 📡 API Endpoints
+## 📡 Endpoints de l'API
+
+### Santé
+- `GET /api/health` — État de l'API et de la base de données
 
 ### Auth
-- `POST /api/auth/register` -Create account
-- `POST /api/auth/login` -Login (returns JWT)
-- `POST /api/auth/refresh` -Refresh token
-- `POST /api/auth/2fa/setup` -Setup TOTP
-- `POST /api/auth/2fa/verify` -Verify 2FA
+- `POST /api/auth/register` — Créer un compte
+- `POST /api/auth/login` — Connexion (renvoie un JWT)
+- `POST /api/auth/refresh` — Rafraîchir le jeton
+- `POST /api/auth/2fa/setup` — Configurer le TOTP
+- `POST /api/auth/2fa/verify` — Vérifier le 2FA
 
 ### Workspaces
-- `GET /api/workspaces` -User's workspaces
-- `GET /api/workspaces/:id` -Workspace details
-- `POST /api/workspaces/:id/invite` -Invite member
+- `GET /api/workspaces` — Workspaces de l'utilisateur
+- `GET /api/workspaces/:id` — Détail d'un workspace
+- `POST /api/workspaces/:id/invite` — Inviter un membre
 
-### Projects
-- `GET /api/projects?workspaceId=` -List projects
-- `GET /api/projects/:id` -Project with columns & tasks
-- `POST /api/projects` -Create project
-- `POST /api/projects/:id/columns` -Add column
+### Projets
+- `GET /api/projects?workspaceId=` — Lister les projets
+- `GET /api/projects/:id` — Projet avec colonnes et tâches
+- `POST /api/projects` — Créer un projet
+- `POST /api/projects/:id/columns` — Ajouter une colonne
 
-### Tasks
-- `GET /api/tasks?projectId=` -List tasks (filterable)
-- `GET /api/tasks/:id` -Task detail
-- `POST /api/tasks` -Create task
-- `PATCH /api/tasks/:id` -Update task
-- `POST /api/tasks/:id/move` -Move task (Kanban)
-- `POST /api/tasks/:id/assign` -Assign user
+### Tâches
+- `GET /api/tasks?projectId=` — Lister les tâches (filtrable)
+- `GET /api/tasks/:id` — Détail d'une tâche
+- `POST /api/tasks` — Créer une tâche
+- `PATCH /api/tasks/:id` — Modifier une tâche
+- `POST /api/tasks/:id/move` — Déplacer une tâche (Kanban)
+- `POST /api/tasks/:id/assign` — Assigner un utilisateur
 
-### Comments
-- `GET /api/comments?taskId=` -Task comments
-- `POST /api/comments` -Add comment
+### Commentaires
+- `GET /api/comments?taskId=` — Commentaires d'une tâche
+- `POST /api/comments` — Ajouter un commentaire
 
 ### Notifications
-- `GET /api/notifications` -Notification feed
-- `POST /api/notifications/read-all` -Mark all read
+- `GET /api/notifications` — Fil de notifications
+- `POST /api/notifications/read-all` — Tout marquer comme lu
 
-## 🔌 WebSocket Events
+La documentation complète est disponible sur `/api/docs` (Swagger).
 
-| Event | Direction | Description |
-|-------|-----------|-------------|
-| `join:workspace` | → Server | Join workspace room |
-| `join:project` | → Server | Join project room |
-| `task:move` | → Server | Broadcast task move |
-| `task:moved` | ← Client | Receive task move |
-| `task:update` | → Server | Broadcast task update |
-| `task:updated` | ← Client | Receive task update |
-| `comment:new` | → Server | Broadcast new comment |
-| `comment:added` | ← Client | Receive new comment |
-| `cursor:move` | → Server | Broadcast cursor position |
-| `cursor:moved` | ← Client | Receive cursor position |
-| `users:online` | ← Client | Online users list |
+## 🔌 Événements WebSocket
+
+*Disponibles uniquement si le backend tourne sur un serveur persistant (Docker, Render, Railway, Fly) et que `VITE_WS_URL` est défini.*
+
+| Événement | Direction | Description |
+|-----------|-----------|-------------|
+| `join:workspace` | → Serveur | Rejoindre la room du workspace |
+| `join:project` | → Serveur | Rejoindre la room du projet |
+| `task:move` | → Serveur | Diffuser un déplacement de tâche |
+| `task:moved` | ← Client | Recevoir un déplacement de tâche |
+| `task:update` | → Serveur | Diffuser une mise à jour de tâche |
+| `task:updated` | ← Client | Recevoir une mise à jour de tâche |
+| `comment:new` | → Serveur | Diffuser un nouveau commentaire |
+| `comment:added` | ← Client | Recevoir un nouveau commentaire |
+| `cursor:move` | → Serveur | Diffuser la position du curseur |
+| `cursor:moved` | ← Client | Recevoir la position du curseur |
+| `users:online` | ← Client | Liste des utilisateurs en ligne |
 
