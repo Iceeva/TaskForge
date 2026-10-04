@@ -2,7 +2,7 @@
 
 TaskForge se déploie sur Vercel de deux façons. **L'option A (un seul projet) est recommandée** : une seule URL, pas de CORS, un seul déploiement.
 
-| | Option A — 1 projet (recommandé) | Option B — 2 projets |
+| | Option A - 1 projet (recommandé) | Option B - 2 projets |
 |---|---|---|
 | Root Directory | `.` (racine du repo) | `backend` **et** `frontend` (2 projets) |
 | Front | `frontend/dist` (statique) | projet Vercel dédié |
@@ -30,7 +30,7 @@ npx prisma db seed        # optionnel : données de démo
 
 ---
 
-## Option A — Un seul projet Vercel
+## Option A - Un seul projet Vercel
 
 1. [vercel.com/new](https://vercel.com/new) → importe le repo, **Root Directory = `.`**, Framework Preset = **Other**.
    Le `vercel.json` racine fournit déjà : build (`npm run vercel-build`), dossier de sortie (`frontend/dist`), fonction API et rewrites.
@@ -52,9 +52,9 @@ JWT_REFRESH_SECRET=<≥ 32 caractères, différent du précédent>
 
 ---
 
-## Option B — Deux projets Vercel
+## Option B - Deux projets Vercel
 
-**API** — Root Directory `backend`, Preset *Other*. Variables :
+**API** - Root Directory `backend`, Preset *Other*. Variables :
 
 ```
 DATABASE_URL=...  DIRECT_URL=...
@@ -63,7 +63,7 @@ CORS_ORIGIN=https://app.tondomaine.com
 FRONTEND_URL=https://app.tondomaine.com
 ```
 
-**App** — Root Directory `frontend`, Preset *Vite*. Variable :
+**App** - Root Directory `frontend`, Preset *Vite*. Variable :
 
 ```
 VITE_API_URL=https://api.tondomaine.com/api

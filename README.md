@@ -1,4 +1,4 @@
-# ⚡ TaskForge — Gestion de tâches collaborative en SaaS
+# ⚡ TaskForge - Gestion de tâches collaborative en SaaS
 
 ![NestJS](https://img.shields.io/badge/NestJS-10-red) ![React](https://img.shields.io/badge/React-18.3-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue) ![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-sky) ![Prisma](https://img.shields.io/badge/Prisma-6-teal) ![License](https://img.shields.io/badge/License-MIT-green)
 
@@ -20,55 +20,55 @@ TaskForge est une plateforme SaaS de gestion de tâches collaborative, dans l'es
 ## ✨ Fonctionnalités
 
 ### 📋 Gestion des tâches
-- **Tableau Kanban** — glisser-déposer des tâches entre colonnes (dnd-kit)
-- **Vue liste** — tableau des tâches avec tri et filtres
-- **Vue calendrier** — calendrier mensuel avec placement des tâches
-- **Vue timeline** — frise horizontale pour les tâches datées
-- **Diagramme de Gantt** — planning du projet avec barres de progression et dépendances
-- **Détail d'une tâche** — modale riche : description, checklist, commentaires, journal d'activité
-- **Sous-tâches** — hiérarchie de tâches imbriquées
-- **Priorités** — Urgente, Haute, Moyenne, Basse, Aucune
-- **Labels** — étiquettes colorées personnalisables
-- **Checklist** — éléments de checklist au sein d'une tâche
-- **Pièces jointes** — envoi de fichiers
+- **Tableau Kanban** - glisser-déposer des tâches entre colonnes (dnd-kit)
+- **Vue liste** - tableau des tâches avec tri et filtres
+- **Vue calendrier** - calendrier mensuel avec placement des tâches
+- **Vue timeline** - frise horizontale pour les tâches datées
+- **Diagramme de Gantt** - planning du projet avec barres de progression et dépendances
+- **Détail d'une tâche** - modale riche : description, checklist, commentaires, journal d'activité
+- **Sous-tâches** - hiérarchie de tâches imbriquées
+- **Priorités** - Urgente, Haute, Moyenne, Basse, Aucune
+- **Labels** - étiquettes colorées personnalisables
+- **Checklist** - éléments de checklist au sein d'une tâche
+- **Pièces jointes** - envoi de fichiers
 
 ### 👥 Collaboration
-- **Synchronisation temps réel** — WebSocket Socket.io pour les mises à jour en direct *(hors Vercel)*
-- **Commentaires** — commentaires en fil sur les tâches
-- **Curseurs en direct** — voir où travaillent les coéquipiers
-- **Indicateurs de saisie** — savoir quand quelqu'un écrit
-- **Journal d'activité** — historique complet des modifications
-- **@Mentions** — identifier des membres dans les commentaires
+- **Synchronisation temps réel** - WebSocket Socket.io pour les mises à jour en direct *(hors Vercel)*
+- **Commentaires** - commentaires en fil sur les tâches
+- **Curseurs en direct** - voir où travaillent les coéquipiers
+- **Indicateurs de saisie** - savoir quand quelqu'un écrit
+- **Journal d'activité** - historique complet des modifications
+- **@Mentions** - identifier des membres dans les commentaires
 
 ### 🏢 Multi-tenant
-- **Workspaces** — données isolées par espace de travail
-- **Équipes** — organisation des membres en équipes
-- **Projets** — plusieurs projets par workspace
-- **Invitations** — invitations de membres par e-mail
-- **RBAC** — rôles Owner, Admin, Member, Viewer
+- **Workspaces** - données isolées par espace de travail
+- **Équipes** - organisation des membres en équipes
+- **Projets** - plusieurs projets par workspace
+- **Invitations** - invitations de membres par e-mail
+- **RBAC** - rôles Owner, Admin, Member, Viewer
 
 ### 🔐 Sécurité
-- **Authentification JWT** — jetons d'accès + de rafraîchissement
-- **OAuth** — connexion sociale Google & GitHub
-- **Double authentification** — 2FA par TOTP
-- **Hachage des mots de passe** — bcrypt, 12 tours
-- **CORS** — politique d'origines configurable
+- **Authentification JWT** - jetons d'accès + de rafraîchissement
+- **OAuth** - connexion sociale Google & GitHub
+- **Double authentification** - 2FA par TOTP
+- **Hachage des mots de passe** - bcrypt, 12 tours
+- **CORS** - politique d'origines configurable
 
 ### 🔔 Notifications
-- **Dans l'application** — fil de notifications
-- **Configurables** — réglages par type de notification
-- **Marquer comme lu** — individuellement ou en masse
+- **Dans l'application** - fil de notifications
+- **Configurables** - réglages par type de notification
+- **Marquer comme lu** - individuellement ou en masse
 
 ### 🏃 Agile & suivi
-- **Sprints** — planification, activation, burndown chart
-- **Jalons** — jalons de projet avec date d'échéance
-- **Suivi du temps** — temps logué par tâche, résumé par membre/projet
-- **Dépendances entre tâches** — « bloque » / « bloqué par »
-- **Analytics** — taux de complétion, retards, charge par membre, tendance sur 14 jours
-- **Recherche globale** — palette de commandes (Cmd+K)
-- **Filtres sauvegardés** — personnels ou partagés
-- **Clés API** — intégrations externes (clé hachée en SHA-256)
-- **Export CSV** — export des tâches d'un projet
+- **Sprints** - planification, activation, burndown chart
+- **Jalons** - jalons de projet avec date d'échéance
+- **Suivi du temps** - temps logué par tâche, résumé par membre/projet
+- **Dépendances entre tâches** - « bloque » / « bloqué par »
+- **Analytics** - taux de complétion, retards, charge par membre, tendance sur 14 jours
+- **Recherche globale** - palette de commandes (Cmd+K)
+- **Filtres sauvegardés** - personnels ou partagés
+- **Clés API** - intégrations externes (clé hachée en SHA-256)
+- **Export CSV** - export des tâches d'un projet
 
 ## 🛠 Stack technique
 
@@ -201,41 +201,41 @@ alex@taskforge.io / password123 (Member)
 ## 📡 Endpoints de l'API
 
 ### Santé
-- `GET /api/health` — État de l'API et de la base de données
+- `GET /api/health` - État de l'API et de la base de données
 
 ### Auth
-- `POST /api/auth/register` — Créer un compte
-- `POST /api/auth/login` — Connexion (renvoie un JWT)
-- `POST /api/auth/refresh` — Rafraîchir le jeton
-- `POST /api/auth/2fa/setup` — Configurer le TOTP
-- `POST /api/auth/2fa/verify` — Vérifier le 2FA
+- `POST /api/auth/register` - Créer un compte
+- `POST /api/auth/login` - Connexion (renvoie un JWT)
+- `POST /api/auth/refresh` - Rafraîchir le jeton
+- `POST /api/auth/2fa/setup` - Configurer le TOTP
+- `POST /api/auth/2fa/verify` - Vérifier le 2FA
 
 ### Workspaces
-- `GET /api/workspaces` — Workspaces de l'utilisateur
-- `GET /api/workspaces/:id` — Détail d'un workspace
-- `POST /api/workspaces/:id/invite` — Inviter un membre
+- `GET /api/workspaces` - Workspaces de l'utilisateur
+- `GET /api/workspaces/:id` - Détail d'un workspace
+- `POST /api/workspaces/:id/invite` - Inviter un membre
 
 ### Projets
-- `GET /api/projects?workspaceId=` — Lister les projets
-- `GET /api/projects/:id` — Projet avec colonnes et tâches
-- `POST /api/projects` — Créer un projet
-- `POST /api/projects/:id/columns` — Ajouter une colonne
+- `GET /api/projects?workspaceId=` - Lister les projets
+- `GET /api/projects/:id` - Projet avec colonnes et tâches
+- `POST /api/projects` - Créer un projet
+- `POST /api/projects/:id/columns` - Ajouter une colonne
 
 ### Tâches
-- `GET /api/tasks?projectId=` — Lister les tâches (filtrable)
-- `GET /api/tasks/:id` — Détail d'une tâche
-- `POST /api/tasks` — Créer une tâche
-- `PATCH /api/tasks/:id` — Modifier une tâche
-- `POST /api/tasks/:id/move` — Déplacer une tâche (Kanban)
-- `POST /api/tasks/:id/assign` — Assigner un utilisateur
+- `GET /api/tasks?projectId=` - Lister les tâches (filtrable)
+- `GET /api/tasks/:id` - Détail d'une tâche
+- `POST /api/tasks` - Créer une tâche
+- `PATCH /api/tasks/:id` - Modifier une tâche
+- `POST /api/tasks/:id/move` - Déplacer une tâche (Kanban)
+- `POST /api/tasks/:id/assign` - Assigner un utilisateur
 
 ### Commentaires
-- `GET /api/comments?taskId=` — Commentaires d'une tâche
-- `POST /api/comments` — Ajouter un commentaire
+- `GET /api/comments?taskId=` - Commentaires d'une tâche
+- `POST /api/comments` - Ajouter un commentaire
 
 ### Notifications
-- `GET /api/notifications` — Fil de notifications
-- `POST /api/notifications/read-all` — Tout marquer comme lu
+- `GET /api/notifications` - Fil de notifications
+- `POST /api/notifications/read-all` - Tout marquer comme lu
 
 La documentation complète est disponible sur `/api/docs` (Swagger).
 

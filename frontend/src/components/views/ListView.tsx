@@ -74,7 +74,7 @@ export default function ListView() {
               'text-[10px]',
               task.dueDate && new Date(task.dueDate) < new Date() ? 'text-red-400' : 'text-zinc-500'
             )}>
-              {task.dueDate ? formatDate(task.dueDate) : '—'}
+              {task.dueDate ? formatDate(task.dueDate) : '-'}
             </span>
 
             {/* Assignee */}
@@ -84,7 +84,7 @@ export default function ListView() {
                   <span className="text-[7px] font-bold text-zinc-400">{getInitials(user.name || '?')}</span>
                 </div>
               ))}
-              {(!task.assignments || task.assignments.length === 0) && <span className="text-zinc-700 text-[10px]">—</span>}
+              {(!task.assignments || task.assignments.length === 0) && <span className="text-zinc-700 text-[10px]">-</span>}
             </div>
           </motion.div>
         ))}
